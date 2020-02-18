@@ -6,6 +6,7 @@ QCOM_BOARD_PLATFORMS += msm8226
 
 QSD8K_BOARD_PLATFORMS := qsd8k
 
+#vendor specific camera extentions
 TARGET_USE_VENDOR_CAMERA_EXT := true
 
 ANDROID_COMPILE_WITH_JACK := false
@@ -103,12 +104,6 @@ BRTCL += libbridge
 #BSON
 BSON := libbson
 
-#BT
-BT := javax.btobex
-BT += libattrib_static
-BT += hcidump.sh
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
-
 #C2DColorConvert
 C2DCC := libc2dcolorconvert
 
@@ -182,20 +177,16 @@ INIT += init.qcom.mdm_links.sh
 INIT += init.qcom.modem_links.sh
 INIT += init.qcom.sensor.sh
 INIT += init.target.rc
-INIT += init.qcom.bt.sh
-INIT += hsic.control.bt.sh
 INIT += init.qcom.coex.sh
 INIT += init.qcom.fm.sh
 INIT += init.qcom.early_boot.sh
 INIT += init.qcom.post_boot.sh
-INIT += init.qcom.syspart_fixup.sh
 INIT += init.qcom.rc
 INIT += init.qcom.factory.sh
 INIT += init.qcom.sdio.sh
 INIT += init.qcom.sh
 INIT += init.qcom.class_core.sh
 INIT += init.class_main.sh
-INIT += init.qcom.wifi.sh
 INIT += vold.fstab
 INIT += init.qcom.ril.path.sh
 INIT += init.qcom.usb.rc
@@ -203,7 +194,6 @@ INIT += init.qcom.usb.sh
 INIT += usf_post_boot.sh
 INIT += init.qcom.efs.sync.sh
 INIT += ueventd.qcom.rc
-INIT += init.ath3k.bt.sh
 INIT += qca6234-service.sh
 INIT += init.qcom.audio.sh
 INIT += init.qcom.ssr.sh
@@ -496,12 +486,6 @@ QRGND := qrngd
 QRGND += qrngp
 QRGND += qrngtest
 
-#WPA
-WPA := wpa_supplicant.conf
-WPA += wpa_supplicant_wcn.conf
-WPA += wpa_supplicant_ath6kl.conf
-WPA += wpa_supplicant
-
 #ZLIB
 ZLIB := gzip
 ZLIB += minigzip
@@ -528,16 +512,10 @@ CRDA += regulatory.bin
 CRDA += linville.key.pub.pem
 CRDA += init.crda.sh
 
-#WLAN
-WLAN := prima_wlan.ko
-WLAN += pronto_wlan.ko
-
 PRODUCT_PACKAGES := \
     AccountAndSyncSettings \
     DeskClock \
     AlarmProvider \
-    Bluetooth \
-    BluetoothExt \
     Calculator \
     Calendar \
     Camera \
@@ -576,7 +554,6 @@ PRODUCT_PACKAGES += $(AMPLOADER)
 PRODUCT_PACKAGES += $(APPS)
 PRODUCT_PACKAGES += $(BRCTL)
 PRODUCT_PACKAGES += $(BSON)
-PRODUCT_PACKAGES += $(BT)
 PRODUCT_PACKAGES += $(C2DCC)
 PRODUCT_PACKAGES += $(CIMAX)
 PRODUCT_PACKAGES += $(CONNECTIVITY)
@@ -633,7 +610,6 @@ PRODUCT_PACKAGES += $(STMLOG)
 PRODUCT_PACKAGES += $(TSLIB_EXTERNAL)
 PRODUCT_PACKAGES += $(QRGND)
 PRODUCT_PACKAGES += $(UPDATER)
-PRODUCT_PACKAGES += $(WPA)
 PRODUCT_PACKAGES += $(ZLIB)
 PRODUCT_PACKAGES += $(VT_JNI)
 PRODUCT_PACKAGES += $(VT_QTI_PERMISSIONS)
@@ -674,10 +650,7 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
@@ -685,20 +658,6 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-
-# Bluetooth configuration files
-#PRODUCT_COPY_FILES += \
-    system/bluetooth/data/audio.conf:system/etc/bluetooth/audio.conf \
-    system/bluetooth/data/auto_pairing.conf:system/etc/bluetooth/auto_pairing.conf \
-    system/bluetooth/data/blacklist.conf:system/etc/bluetooth/blacklist.conf \
-    system/bluetooth/data/input.conf:system/etc/bluetooth/input.conf \
-    system/bluetooth/data/network.conf:system/etc/bluetooth/network.conf \
-
-#ifeq ($(BOARD_HAVE_BLUETOOTH_BLUEZ),true)
-#PRODUCT_COPY_FILES += \
-    system/bluetooth/data/stack.conf:system/etc/bluetooth/stack.conf
-#endif # BOARD_HAVE_BLUETOOTH_BLUEZ
 
 # gps/location secuity configuration file
 PRODUCT_COPY_FILES += \
@@ -726,9 +685,6 @@ PRODUCT_PACKAGE_OVERLAYS += device/qcom/common/product/overlay
 # include additional build utilities
 -include device/qcom/common/utils.mk
 
-#Enabling Ring Tones
-#include frameworks/base/data/sounds/OriginalAudio.mk
-
 #Enabling video for live effects
 -include frameworks/base/data/videos/VideoPackage1.mk
 
@@ -752,8 +708,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PRIVATE_KEY := device/qcom/common/qcom.key
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
-#$(call inherit-product, frameworks/base/data/fonts/fonts.mk)
-#$(call inherit-product, frameworks/base/data/keyboards/keyboards.mk)
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES+= \

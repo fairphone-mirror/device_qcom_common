@@ -102,8 +102,7 @@ DTBTOOL := $(HOST_OUT_EXECUTABLES)/dtbTool$(HOST_EXECUTABLE_SUFFIX)
 
 INSTALLED_DTIMAGE_TARGET := $(PRODUCT_OUT)/dt.img
 
-possible_dtb_dirs = $(KERNEL_OUT)/arch/arm/boot/dts/ $(KERNEL_OUT)/arch/arm/boot/
-dtb_dir = $(firstword $(wildcard $(possible_dtb_dirs)))
+dtb_dir = $(KERNEL_OUT)/arch/arm/boot/  
 
 define build-dtimage-target
     $(call pretty,"Target dt image: $(INSTALLED_DTIMAGE_TARGET)")
@@ -378,17 +377,17 @@ endif
 #----------------------------------------------------------------------
 # Compile (L)ittle (K)ernel bootloader and the nandwrite utility
 #----------------------------------------------------------------------
-ifneq ($(strip $(TARGET_NO_BOOTLOADER)),true)
+#ifneq ($(strip $(TARGET_NO_BOOTLOADER)),true)
 
 # Compile
-include bootable/bootloader/lk/AndroidBoot.mk
+#include bootable/bootloader/lk/AndroidBoot.mk
 
-$(INSTALLED_BOOTLOADER_MODULE): $(TARGET_EMMC_BOOTLOADER) | $(ACP)
-    $(transform-prebuilt-to-target)
-$(BUILT_TARGET_FILES_PACKAGE): $(INSTALLED_BOOTLOADER_MODULE)
+#$(INSTALLED_BOOTLOADER_MODULE): $(TARGET_EMMC_BOOTLOADER) | $(ACP)
+#    $(transform-prebuilt-to-target)
+#$(BUILT_TARGET_FILES_PACKAGE): $(INSTALLED_BOOTLOADER_MODULE)
 
-droidcore: $(INSTALLED_BOOTLOADER_MODULE)
-endif
+#droidcore: $(INSTALLED_BOOTLOADER_MODULE)
+#endif
 
 #----------------------------------------------------------------------
 # Generate secure boot image
