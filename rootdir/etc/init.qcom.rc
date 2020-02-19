@@ -82,6 +82,15 @@ on boot
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
 
+    # Wifi firmware reload path
+    chown wifi wifi /sys/module/wlan/parameters/fwpath
+
+    setprop wifi.interface wlan0
+
+#   Define TCP buffer sizes for various networks
+#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.wifi    524288,2097152,4194304,262144,524288,1048576
+
     setprop ro.telephony.call_ring.multiple false
 
     #Set SUID bit for usbhub
@@ -113,8 +122,10 @@ on boot
 
 # Define TCP delayed ack settings for WiFi & LTE
     setprop net.tcp.delack.default     1
+    setprop net.tcp.delack.wifi        20
     setprop net.tcp.delack.lte         8
     setprop net.tcp.usercfg.default    0
+    setprop net.tcp.usercfg.wifi       1
     setprop net.tcp.usercfg.lte        1
 
 #   Assign TCP buffer thresholds to be ceiling value of technology maximums
@@ -169,6 +180,9 @@ on post-fs-data
     mkdir /data/misc/camera 0770 camera camera
 
     # Create the directories used by the Wireless subsystem
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
@@ -217,6 +231,7 @@ on post-fs-data
     #Create directories for Location services
     mkdir /data/misc/location 0770 gps gps
     mkdir /data/misc/location/mq 0770 gps gps
+    mkdir /data/misc/location/xtwifi 0770 gps gps
     mkdir /data/misc/location/gpsone_d 0770 system gps
     mkdir /data/misc/location/quipc 0770 gps system
     mkdir /data/misc/location/gsiff 0770 gps gps
@@ -228,6 +243,9 @@ on post-fs-data
     #Create directory for FOTA
     mkdir /data/fota 0771
     chown system system /data/fota
+
+    #Create directory for hostapd
+    mkdir /data/hostapd 0770 system wifi
 
     # Create /data/time folder for time-services
     mkdir /data/time/ 0700 system system
@@ -268,6 +286,9 @@ service ssr_setup /system/bin/ssr_setup
     oneshot
     disabled
 
+on property:wifi.change_nv_owner=1
+    chown wifi wifi /persist/WCNSS_qcom_wlan_nv.bin
+
 on property:persist.sys.ssr.restart_level=*
     start ssr_setup
 
@@ -302,6 +323,10 @@ on property:persist.debug.trace=1
 
 on property:ro.board.platform=msm7630_fusion
     start usbhub_init
+
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd
+
 
 service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
     class core
@@ -348,6 +373,12 @@ service rfs_access /system/vendor/bin/rfs_access
 
 on property:ro.boot.emmc=true
     start rfs_access
+
+service start_hci_filter /system/bin/wcnss_filter
+    class late_start
+    user bluetooth
+    group bluetooth
+    disabled
 
 service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     class late_start

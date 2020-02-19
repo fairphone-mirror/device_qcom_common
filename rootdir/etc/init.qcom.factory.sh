@@ -48,6 +48,8 @@
     # Allow QMUX daemon to assign port open wait time
     chown -h radio.radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
 
+    setprop wifi.interface wlan0
+
     setprop ro.telephony.call_ring.multiple false
 
     #Set SUID bit for usbhub
@@ -193,6 +195,7 @@
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
     setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
     setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.hspa    4094,87380,1220608,4096,16384,1220608

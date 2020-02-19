@@ -119,7 +119,7 @@ case "$target" in
     ;;
     "apq8084")
 	if [ "$baseband" == "apq" ]; then
-	#	echo "msm_hsic_host" > /sys/bus/platform/drivers/xhci_msm_hsic/unbind
+		echo "msm_hsic_host" > /sys/bus/platform/drivers/xhci_msm_hsic/unbind
 	fi
     ;;
     "msm8226")

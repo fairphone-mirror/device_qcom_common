@@ -187,6 +187,7 @@ INIT += init.qcom.sdio.sh
 INIT += init.qcom.sh
 INIT += init.qcom.class_core.sh
 INIT += init.class_main.sh
+INIT += init.qcom.wifi.sh
 INIT += vold.fstab
 INIT += init.qcom.ril.path.sh
 INIT += init.qcom.usb.rc
@@ -486,6 +487,12 @@ QRGND := qrngd
 QRGND += qrngp
 QRGND += qrngtest
 
+#WPA
+WPA := wpa_supplicant.conf
+WPA += wpa_supplicant_wcn.conf
+WPA += wpa_supplicant_ath6kl.conf
+WPA += wpa_supplicant
+
 #ZLIB
 ZLIB := gzip
 ZLIB += minigzip
@@ -511,6 +518,10 @@ CRDA += regdbdump
 CRDA += regulatory.bin
 CRDA += linville.key.pub.pem
 CRDA += init.crda.sh
+
+#WLAN
+WLAN := prima_wlan.ko
+WLAN += pronto_wlan.ko
 
 PRODUCT_PACKAGES := \
     AccountAndSyncSettings \
@@ -610,6 +621,7 @@ PRODUCT_PACKAGES += $(STMLOG)
 PRODUCT_PACKAGES += $(TSLIB_EXTERNAL)
 PRODUCT_PACKAGES += $(QRGND)
 PRODUCT_PACKAGES += $(UPDATER)
+PRODUCT_PACKAGES += $(WPA)
 PRODUCT_PACKAGES += $(ZLIB)
 PRODUCT_PACKAGES += $(VT_JNI)
 PRODUCT_PACKAGES += $(VT_QTI_PERMISSIONS)
@@ -651,6 +663,8 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
