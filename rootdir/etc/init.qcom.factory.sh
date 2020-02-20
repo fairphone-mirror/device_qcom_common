@@ -27,12 +27,24 @@
 #
 
 # Actions on fast factory test mode
+    chown -h bluetooth.bluetooth /sys/module/bluetooth_power/parameters/power
+    chown -h bluetooth.bluetooth /sys/class/rfkill/rfkill0/type
+    chown -h bluetooth.bluetooth /sys/class/rfkill/rfkill0/state
+    chown -h bluetooth.bluetooth /proc/bluetooth/sleep/proto
     chown -h system.system /sys/module/sco/parameters/disable_esco
+    chown -h bluetooth.bluetooth /sys/module/hci_smd/parameters/hcismd_set
+    chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
+    chmod 0660 /sys/module/bluetooth_power/parameters/power
+
     chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /proc/bluetooth/sleep/proto
+    chown -h bluetooth.bluetooth /dev/ttyHS0
     chmod 0660 /dev/ttyHS0
+    chown -h bluetooth.bluetooth /sys/devices/platform/msm_serial_hs.0/clock    
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
 
     chmod 0660 /dev/ttyHS2
+    chown -h bluetooth.bluetooth /dev/ttyHS2
 
     #Create QMUX deamon socket area
     mkdir -p /dev/socket/qmux_radio
@@ -41,6 +53,9 @@
     mkdir -p /dev/socket/qmux_audio
     chown -h media.audio /dev/socket/qmux_audio
     chmod 2770 /dev/socket/qmux_audio
+    mkdir -p /dev/socket/qmux_bluetooth
+    chown -h bluetooth.bluetooth /dev/socket/qmux_bluetooth
+    chmod 2770 /dev/socket/qmux_bluetooth    
     mkdir -p /dev/socket/qmux_gps
     chown -h gps.gps /dev/socket/qmux_gps
     chmod 2770 /dev/socket/qmux_gps
@@ -220,6 +235,7 @@
     setprop system_init.startsurfaceflinger 0
 
 # Start the following services needed for fftm
+    start config_bluetooth
     start media
     start fastmmi
     start adbd

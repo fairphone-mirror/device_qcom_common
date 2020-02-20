@@ -104,6 +104,12 @@ BRTCL += libbridge
 #BSON
 BSON := libbson
 
+#BT
+BT := javax.btobex
+BT += libattrib_static
+BT += hcidump.sh
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
+
 #C2DColorConvert
 C2DCC := libc2dcolorconvert
 
@@ -176,6 +182,8 @@ INIT += init.target.8x25.sh
 INIT += init.qcom.mdm_links.sh
 INIT += init.qcom.modem_links.sh
 INIT += init.qcom.sensor.sh
+INIT += init.qcom.bt.sh
+INIT += hsic.control.bt.sh
 INIT += init.target.rc
 INIT += init.qcom.coex.sh
 INIT += init.qcom.fm.sh
@@ -195,6 +203,7 @@ INIT += init.qcom.usb.sh
 INIT += usf_post_boot.sh
 INIT += init.qcom.efs.sync.sh
 INIT += ueventd.qcom.rc
+INIT += init.ath3k.bt.sh
 INIT += qca6234-service.sh
 INIT += init.qcom.audio.sh
 INIT += init.qcom.ssr.sh
@@ -527,6 +536,8 @@ PRODUCT_PACKAGES := \
     AccountAndSyncSettings \
     DeskClock \
     AlarmProvider \
+    Bluetooth \
+    BluetoothExt \
     Calculator \
     Calendar \
     Camera \
@@ -565,6 +576,7 @@ PRODUCT_PACKAGES += $(AMPLOADER)
 PRODUCT_PACKAGES += $(APPS)
 PRODUCT_PACKAGES += $(BRCTL)
 PRODUCT_PACKAGES += $(BSON)
+PRODUCT_PACKAGES += $(BT)
 PRODUCT_PACKAGES += $(C2DCC)
 PRODUCT_PACKAGES += $(CIMAX)
 PRODUCT_PACKAGES += $(CONNECTIVITY)
@@ -672,10 +684,19 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
 # gps/location secuity configuration file
 PRODUCT_COPY_FILES += \
     device/qcom/common/sec_config:system/etc/sec_config
+
+# Bluetooth configuration files
+#PRODUCT_COPY_FILES += \
+    system/bluetooth/data/audio.conf:system/etc/bluetooth/audio.conf \
+    system/bluetooth/data/auto_pairing.conf:system/etc/bluetooth/auto_pairing.conf \
+    system/bluetooth/data/blacklist.conf:system/etc/bluetooth/blacklist.conf \
+    system/bluetooth/data/input.conf:system/etc/bluetooth/input.conf \
+    system/bluetooth/data/network.conf:system/etc/bluetooth/network.conf \
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
