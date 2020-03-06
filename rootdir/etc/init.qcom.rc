@@ -1,4 +1,5 @@
 # Copyright (c) 2009-2012,2014 The Linux Foundation. All rights reserved.
+# Copyright 2020 Fairphone B.V.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -196,6 +197,14 @@ on post-fs-data
     mkdir /data/misc/camera 0770 camera camera
 
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+
+    # Create directory used by sensor subsystem
+    mkdir /persist/sensors 0775 system root
+    write /persist/sensors/sensors_settings 1
+    chmod 0644 /persist/sensors/sensors_settings
+    chown system root /persist/sensors/sensors_settings
+    mkdir /data/misc/sensors 0775 system system
+    restorecon_recursive /data/misc/sensors
 
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
@@ -502,11 +511,10 @@ service netmgrd /system/vendor/bin/netmgrd
     class main
     disabled
 
-service sensors /system/bin/sensors.qcom
+service sensors /system/vendor/bin/sensors.qcom
     class late_start
     user root
     group root
-    disabled
 
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
