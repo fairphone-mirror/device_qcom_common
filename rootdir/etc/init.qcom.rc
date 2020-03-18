@@ -379,10 +379,11 @@ on property:bluetooth.startbtsnoop=true
 on property:bluetooth.startbtsnoop=false
     stop btsnoop
 
-service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
-    class core
-    user root
-    oneshot
+# These are commented out for initial bootup in Userbuild and will be uncommented.
+#service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
+#    class core
+#    user root
+#    oneshot
 
 service qcom-c_main-sh /system/bin/sh /init.class_main.sh
     class main
@@ -410,13 +411,14 @@ service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     user root
     oneshot
 
-service rmt_storage /system/vendor/bin/rmt_storage
-    class core
-    user root
-    disabled
+# These are commented out for initial bootup in Userbuild and will be uncommented.
+#service rmt_storage /system/vendor/bin/rmt_storage
+#    class core
+#    user root
+#    disabled
 
 on property:ro.boot.emmc=true
-    start rmt_storage
+#    start rmt_storage
 
 on property:bluetooth.start_hci=true
     start start_hci_filter
@@ -479,13 +481,14 @@ service btsnoop /system/bin/btsnoop
    disabled
    oneshot
 
-service rfs_access /system/vendor/bin/rfs_access
-    class core
-    user system
-    group system net_raw
+# These are commented out for initial bootup in Userbuild and will be uncommented.
+#service rfs_access /system/vendor/bin/rfs_access
+#    class core
+#    user system
+#    group system net_raw
 
 on property:ro.boot.emmc=true
-    start rfs_access
+#    start rfs_access
 
 service start_hci_filter /system/bin/wcnss_filter
     class late_start
