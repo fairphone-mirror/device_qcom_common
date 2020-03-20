@@ -199,11 +199,7 @@ on post-fs-data
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
 
     # Create directory used by sensor subsystem
-    mkdir /persist/sensors 0775 system root
-    write /persist/sensors/sensors_settings 1
-    chmod 0644 /persist/sensors/sensors_settings
-    chown system root /persist/sensors/sensors_settings
-    mkdir /data/misc/sensors 0775 system system
+    mkdir /data/misc/sensors 0775 system root
     restorecon_recursive /data/misc/sensors
 
     # Create the directories used by the Wireless subsystem
@@ -517,7 +513,7 @@ service netmgrd /system/vendor/bin/netmgrd
 service sensors /system/vendor/bin/sensors.qcom
     class late_start
     user root
-    group root
+    group root system diag shell
 
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
