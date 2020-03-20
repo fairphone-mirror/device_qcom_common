@@ -434,12 +434,10 @@ service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     seclabel u:object_r:bluetooth_loader_exec:s0
     oneshot
 
-#service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
-service hciattach /system/bin/sh /system/vendor/bin/init.qcom.bt.sh
+service hciattach  /system/vendor/bin/init.qcom.bt.sh
     class late_start
     user bluetooth
-    group bluetooth net_bt_admin
-    seclabel u:object_r:bluetooth_loader_exec:s0
+    group bluetooth net_bt_admin diag radio
     disabled
     oneshot
 
