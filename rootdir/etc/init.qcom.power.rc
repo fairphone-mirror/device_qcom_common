@@ -151,10 +151,9 @@ on property:dev.bootcomplete=1
     rm /data/system/perfd/default_values
     start mpdecision
 
-# These are commented out for initial bootup in Userbuild and will be uncommented.
-#service mpdecision /vendor/bin/mpdecision --avg_comp
-#    class main
-#    user root
-#    group root readproc
-#    socket perfd seqpacket 0666 root system
-#    disabled
+service mpdecision /vendor/bin/mpdecision --avg_comp
+    class main
+    user root
+    group root readproc
+    socket perfd seqpacket 0666 root system
+    disabled
