@@ -82,7 +82,7 @@ on boot
     chown bluetooth bluetooth /dev/ttyHS2
 
     #Create QMUX deamon socket area
-    mkdir /dev/socket/qmux_radio 0770 radio radio
+    mkdir /dev/socket/qmux_radio 0770 radio system
     chmod 2770 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
     chmod 2770 /dev/socket/qmux_audio
@@ -375,15 +375,15 @@ on property:bluetooth.startbtsnoop=true
 on property:bluetooth.startbtsnoop=false
     stop btsnoop
 
-service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
+service qcom-c_core-sh  /init.qcom.class_core.sh
     class core
     user root
     oneshot
 
-service qcom-c_main-sh /system/bin/sh /init.class_main.sh
+service qcom-c_main-sh  /init.class_main.sh
     class main
     user root
-    seclabel u:object_r:shell_exec:s0
+    seclabel u:r:qti_init_shell:s0
     oneshot
 
 on property:vold.decrypt=trigger_restart_framework
@@ -409,6 +409,7 @@ service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
 service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
+    group system wakelock
     disabled
 
 on property:ro.boot.emmc=true
@@ -475,7 +476,7 @@ service btsnoop /system/bin/btsnoop
 
 service rfs_access /system/vendor/bin/rfs_access
     class core
-    user system
+    user root
     group system net_raw
 
 on property:ro.boot.emmc=true
@@ -495,14 +496,16 @@ service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     oneshot
 
 # QMUX must be in multiple groups to support external process connections
-service qmuxd /system/vendor/bin/qmuxd
+service qmuxd /vendor/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps oem_2950
+    group radio audio bluetooth gps oem_2950 diag qcom_diag system
     disabled
 
-service netmgrd /system/vendor/bin/netmgrd
+service netmgrd /vendor/bin/netmgrd
     class main
+    user root
+    group root wifi wakelock radio inet diag qcom_diag system
     disabled
 
 service sensors /system/vendor/bin/sensors.qcom
@@ -681,7 +684,7 @@ service atfwd /system/bin/ATFWD-daemon
 service ril-daemon1 /vendor/bin/hw/rild -c 2
     class main
     user radio
-    group radio cache inet misc audio log readproc wakelock oem_2950
+    group radio cache inet misc audio log readproc wakelock diag system root
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
 
 service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
