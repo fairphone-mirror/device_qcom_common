@@ -82,7 +82,7 @@ on boot
     chown bluetooth bluetooth /dev/ttyHS2
 
     #Create QMUX deamon socket area
-    mkdir /dev/socket/qmux_radio 0770 radio system
+    mkdir /dev/socket/qmux_radio 0770 root radio
     chmod 2770 /dev/socket/qmux_radio
     mkdir /dev/socket/qmux_audio 0770 media audio
     chmod 2770 /dev/socket/qmux_audio
@@ -499,7 +499,7 @@ service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
 service qmuxd /vendor/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps oem_2950 diag qcom_diag system
+    group radio audio bluetooth gps oem_2950 diag qcom_diag system netmgrd
     disabled
 
 service netmgrd /vendor/bin/netmgrd
