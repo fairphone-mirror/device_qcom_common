@@ -479,7 +479,7 @@ on property:ro.boot.emmc=true
 service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     class late_start
     user root
-    group bluetooth net_bt_admin misc net_bt_stack oem_2950
+    group bluetooth net_bt_admin misc oem_2950
     disabled
     oneshot
 
@@ -487,13 +487,13 @@ service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
 service qmuxd /vendor/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps oem_2950 diag qcom_diag system netmgrd
+    group radio audio bluetooth gps oem_2950 diag system netmgrd
     disabled
 
 service netmgrd /vendor/bin/netmgrd
     class main
     user root
-    group root wifi wakelock radio inet diag qcom_diag system
+    group root wifi wakelock radio inet diag system
     disabled
 
 service sensors /system/vendor/bin/sensors.qcom
@@ -604,7 +604,7 @@ service dhcpcd_bnep4 /system/bin/dhcpcd -BKLG
 service loc_launcher /system/vendor/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
     class late_start
-    group gps qcom_oncrpc inet net_raw oem_2950 net_admin wifi
+    group gps inet net_raw oem_2950 net_admin wifi
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     class late_start
