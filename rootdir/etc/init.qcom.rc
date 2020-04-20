@@ -296,12 +296,6 @@ service usbhub_init /system/bin/usbhub_init
    disabled
    oneshot
 
-service mpdecision /system/bin/mpdecision
-    class main
-    user root
-    disabled
-    socket perfd seqpacket 0666 root system
-
 service qcomsysd /system/bin/qcom-system-daemon
     class main
 
@@ -481,12 +475,6 @@ service rfs_access /system/vendor/bin/rfs_access
 
 on property:ro.boot.emmc=true
     start rfs_access
-
-service start_hci_filter /system/bin/wcnss_filter
-    class late_start
-    user bluetooth
-    group bluetooth
-    disabled
 
 service ftmd /system/bin/logwrapper /system/bin/ftmdaemon
     class late_start
