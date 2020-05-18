@@ -552,3 +552,12 @@ if [ -f /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies ]; then
     gpu_freq=`cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies` 2> /dev/null
     setprop vendor.gpu.available_frequencies "$gpu_freq"
 fi
+
+batinfo=`cat /sys/class/power_supply/bms/resistance_id`
+if [ "$batinfo" -ge 9000 ] && [ "$batinfo" -le 11000 ]; then
+    setprop ro.hardware.battery_info "F3AC - 3060mAh"
+elif [ "$batinfo" -ge 42500 ] && [ "$batinfo" -le 57500 ]; then
+    setprop ro.hardware.battery_info "F3AC1 - 3000mAh"
+else
+    setprop ro.hardware.battery_info "Unknown battery"
+fi
