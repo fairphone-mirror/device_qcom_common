@@ -424,7 +424,6 @@ service start_hci_filter /system/bin/wcnss_filter
 service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
     class core
     user root
-    seclabel u:object_r:bluetooth_loader_exec:s0
     oneshot
 
 service hciattach  /system/vendor/bin/init.qcom.bt.sh
