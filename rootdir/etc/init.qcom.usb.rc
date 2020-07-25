@@ -44,7 +44,7 @@ on post-fs
 on charger
     setprop sys.usb.config mass_storage
 
-service qcom-usb-sh /system/bin/sh /init.qcom.usb.sh
+service qcom-usb-sh /system/bin/sh /system/vendor/bin/init.qcom.usb.sh
     class main
     user root
     oneshot
