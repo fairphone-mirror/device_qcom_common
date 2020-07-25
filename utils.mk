@@ -1,6 +1,6 @@
 # vars for use by utils
-empty :=
-space := $(empty) $(empty)
+# the following are already defined in build/make:
+# empty space comma newline pound backslash
 colon := $(empty):$(empty)
 underscore := $(empty)_$(empty)
 
@@ -75,11 +75,13 @@ endef
 # The following utilities are meant for board platform specific
 # featurisation
 
+ifndef get-vendor-board-platforms
 # $(call get-vendor-board-platforms,v)
 # returns list of board platforms for vendor v
 define get-vendor-board-platforms
-$($(1)_BOARD_PLATFORMS)
+$(if $(call match-word,$(BOARD_USES_$(1)_HARDWARE),true),$($(1)_BOARD_PLATFORMS))
 endef
+endif # get-vendor-board-platforms
 
 # $(call is-board-platform,bp)
 # returns true or empty
