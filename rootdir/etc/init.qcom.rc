@@ -296,9 +296,6 @@ service usbhub_init /system/bin/usbhub_init
    disabled
    oneshot
 
-service qcomsysd /system/bin/qcom-system-daemon
-    class main
-
 service ssr_setup /system/bin/ssr_setup
     oneshot
     disabled
@@ -386,14 +383,6 @@ on property:vold.decrypt=trigger_restart_framework
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
-
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
 
 service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     class main
@@ -558,18 +547,6 @@ service iprenew_p2p /system/bin/dhcpcd -n
     disabled
     oneshot
 
-service ptt_socket_app /system/bin/ptt_socket_app -d
-    class main
-    user root
-    group root
-    oneshot
-
-service ptt_ffbm /system/bin/ptt_socket_app -f -d
-    user root
-    group root
-    disabled
-    oneshot
-
 service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
     class late_start
     disabled
@@ -663,11 +640,6 @@ on property:sys.boot_completed=1
     start qcom-post-boot
     start qti-testscripts
 
-service atfwd /system/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
-
 service ril-daemon2 /vendor/bin/hw/rild -c 2
     class main
     user radio
@@ -695,12 +667,6 @@ service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
     class late_start
     user root
     disabled
-    oneshot
-
-service usb_uicc_daemon /system/bin/usb_uicc_client
-    class main
-    user system
-    group system log
     oneshot
 
 on property:usb_uicc.enabled=1
@@ -772,11 +738,6 @@ on property:persist.usb.hvdcp.detect=true
 on property:persist.usb.hvdcp.detect=false
     stop hvdcp
 
-service charger_monitor /system/bin/charger_monitor
-    user system
-    group system
-    disabled
-
 service qbcharger /charger -m 1
     disabled
     oneshot
@@ -816,14 +777,6 @@ on property:persist.sys.rootagent=1
     start rootagent
 on property:persist.sys.rootagent=0
     stop rootagent
-
-service RIDL /system/vendor/bin/RIDLClient.exe
-    class late_start
-    oneshot
-    user root
-    group root inet log sdcard_r sdcard_rw oem_2950 radio net_raw
-    # removed for security team - misc bluetooth gps wifi diag media_rw
-    # limited to 12 groups.  Unused: audio usb net_bt_admin net_bt_stac net_admin
 
 service bugreport /system/bin/dumpstate -d -p -B -z \
         -o /data/user_de/0/com.android.shell/files/bugreports/bugreport
