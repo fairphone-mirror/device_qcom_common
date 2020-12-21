@@ -127,6 +127,10 @@ case "$platform" in
             "Dragon")
                 setprop ro.sf.lcd_density 240
                 ;;
+            "MTP")
+                # Workaround for FP2: Property is already set via device
+                # configuration.
+                ;;
             *)
                 setprop ro.sf.lcd_density 320
                 ;;
