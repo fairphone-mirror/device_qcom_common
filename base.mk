@@ -870,7 +870,7 @@ FD_LEAK := libc_leak_detector
 
 ifneq ($(TARGET_HAS_LOW_RAM),true)
 ifneq ($(TARGET_SUPPORTS_ANDROID_WEAR),true)
-TELEPHONY_DBG := NrNetworkSettingApp
+#TELEPHONY_DBG := NrNetworkSettingApp
 endif
 endif
 
@@ -903,10 +903,8 @@ PRODUCT_PACKAGES := \
     IM \
     VoiceDialer \
     SnapdragonGallery \
-    SnapdragonMusic \
     VideoEditor \
-    SnapdragonLauncher \
-    QtiDialer
+    SnapdragonLauncher
 
 ifeq ($(TARGET_HAS_LOW_RAM),true)
     DELAUN := Launcher3QuickStepGo
