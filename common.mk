@@ -685,7 +685,7 @@ PRODUCT_COPY_FILES := \
 
 # gps/location secuity configuration file
 PRODUCT_COPY_FILES += \
-    device/qcom/common/sec_config:system/etc/sec_config
+    device/qcom/common/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
 # enable overlays to use our version of
 # source/resources etc.
