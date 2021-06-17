@@ -213,6 +213,15 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.-->
     </carrier_config>
     <!-- [BUG]-Modify-End by zhongping.zhang -->
 
+    <!-- [BUG]-Modify-Begin by zhongping.zhang 2021-06-17 [FP4-608]Support Volte/VoWifi for Orange/Belgium -->
+    <carrier_config mcc="206" mnc="10">
+        <boolean name="carrier_volte_available_bool" value="true" />
+        <boolean name="carrier_wfc_ims_available_bool" value="true" />
+        <boolean name="video_call_use_ext" value="false" />
+        <boolean name="add_participant_only_in_conference" value="true" />
+    </carrier_config>
+    <!-- [BUG]-Modify-End by zhongping.zhang -->
+
     <carrier_config mcc="208" mnc="01">
         <boolean name="carrier_volte_available_bool" value="true" />
         <boolean name="carrier_wfc_ims_available_bool" value="true" />
