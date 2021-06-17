@@ -232,6 +232,15 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.-->
         <boolean name="carrier_wfc_ims_available_bool" value="true" />
     </carrier_config>
 
+    <!-- [BUG]-Modify-Begin by zhongping.zhang 2021-06-17 [FP4-604]Support Volte/VoWifi for SFR/France -->
+    <carrier_config mcc="208" mnc="10">
+        <boolean name="carrier_volte_available_bool" value="true" />
+        <boolean name="carrier_wfc_ims_available_bool" value="true" />
+        <boolean name="video_call_use_ext" value="false" />
+        <boolean name="add_participant_only_in_conference" value="true" />
+    </carrier_config>
+    <!-- [BUG]-Modify-End by zhongping.zhang -->
+
     <carrier_config mcc="208" mnc="11">
         <boolean name="carrier_volte_available_bool" value="true" />
         <boolean name="carrier_wfc_ims_available_bool" value="true" />
