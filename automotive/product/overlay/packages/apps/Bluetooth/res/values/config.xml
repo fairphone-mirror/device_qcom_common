@@ -31,7 +31,9 @@
 -->
 <resources>
     <bool name="profile_supported_avrcp_controller">true</bool>
-    <bool name="profile_supported_a2dp_sink">true</bool>
+    <!--[BUGFIX]-MOD-BEGIN by T2M.ZhangJie,01/27/2021,10686540,-->
+    <bool name="profile_supported_a2dp_sink">false</bool>
+    <!--[BUGFIX]-MOD-END by T2M.ZhangJie-->
     <bool name="profile_supported_sap">false</bool>
     <bool name="profile_supported_hid_device">false</bool>
     <bool name="profile_supported_avrcp_target">false</bool>
