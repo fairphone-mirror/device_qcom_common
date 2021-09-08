@@ -179,7 +179,7 @@
          backlight values for LUX levels between these control points.
 
          Must be overridden in platform specific overlays -->
-    <integer-array name="config_autoBrightnessLevels">
+    <!-- <integer-array name="config_autoBrightnessLevels">
         <item>10</item>
         <item>30</item>
         <item>60</item>
@@ -187,7 +187,24 @@
         <item>150</item>
         <item>210</item>
         <item>255</item>
+    </integer-array> -->
+
+    <integer-array name="config_autoBrightnessLevels">
+        <item>1</item>
+        <item>10</item>
+        <item>50</item>
+        <item>100</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>3000</item>
     </integer-array>
+
+    <integer name="config_autoBrightnessBrighteningLightDebounce">1000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">1000</integer>
+
+    <integer name="config_screenBrightnessSettingMinimum">3</integer>
+    <integer name="config_screenBrightnessDim">3</integer>
+    <integer name="config_screenBrightnessDark">3</integer>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
          in the config_autoBrightnessLevels array.  This array should have size one greater
