@@ -120,7 +120,7 @@ define sign_module
 	      cp $1 $1.unsigned; \
 	      $(MODULE_SIGN_FILE) \$$KMOD_SIG_HASH $(MODSECKEY) $(MODPUBKEY) $1; \
 	      echo \"Signing kernel module: texfat\"; \
-	      $(MODULE_SIGN_FILE) \$$KMOD_SIG_HASH $(MODSECKEY) $(MODPUBKEY) device/qcom/lito/tuxera/texfat.ko out/target/product/lito/vendor/lib/modules/texfat.ko; \
+	      $(MODULE_SIGN_FILE) \$$KMOD_SIG_HASH $(MODSECKEY) $(MODPUBKEY) device/qcom/lito/tuxera/texfat.unsigned.ko out/target/product/lito/vendor/lib/modules/texfat.ko; \
 	   fi; \
 	"
 endef
