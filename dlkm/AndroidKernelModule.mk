@@ -120,6 +120,13 @@ define sign_module
 	      cp $1 $1.unsigned; \
 	      $(MODULE_SIGN_FILE) \$$KMOD_SIG_HASH $(MODSECKEY) $(MODPUBKEY) $1; \
 	   fi; \
+	   signed=`find $(TARGET_OUT_VENDOR) -type f -name texfat.ko`; \
+	   unsigned=`find $(PRODUCT_OUT) -maxdepth 1 -type f -name texfat.ko` ; \
+	   if [ -n \"\$$unsigned\" ] && [ -z \"\$$signed\" ]; then \
+	       echo \"Signing kernel module: texfat\"; \
+	       $(MODULE_SIGN_FILE) \$$KMOD_SIG_HASH $(MODSECKEY) $(MODPUBKEY) $(DRIVER_UNSIGNED_PATH) $(DRIVER_SIGNED_PATH); \
+	       echo \"Signing complete\" ; \
+	   fi; \
 	"
 endef
 
