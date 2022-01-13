@@ -37,7 +37,9 @@
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
    <!-- Enable ACS (auto channel selection) for Wifi hotspot (SAP) -->
-   <bool translatable="false" name="config_wifi_softap_acs_supported">true</bool>
+   <!--[BUGFIX]-MOD-BEGIN by T2M.ZhangJie,02/23/2021,10748380,disable acs-->
+   <bool translatable="false" name="config_wifi_softap_acs_supported">false</bool>
+   <!--[BUGFIX]-MOD-END by T2M.ZhangJie-->
 
    <!-- Enable 802.11ac for Wifi hotspot (SAP) -->
    <bool translatable="false" name="config_wifi_softap_ieee80211ac_supported">true</bool>
