@@ -224,8 +224,9 @@
         <item>255</item>
     </integer-array>
 
+    <!--[BUG]-Modify by shaopan.tang 2022-06-28 [FP4S-236]Custom mms user agent -->
     <!-- MMS user agent string -->
-    <string name="config_mms_user_agent" translatable="false">Android-Mms/2.0</string>
+    <string name="config_mms_user_agent" translatable="false">FP4</string>
 
     <!-- MMS user agent prolfile url -->
     <string name="config_mms_user_agent_profile_url" translatable="false"
