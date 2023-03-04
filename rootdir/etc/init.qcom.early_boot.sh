@@ -553,6 +553,10 @@ else
     setprop ro.vendor.alarm_boot false
 fi
 
+# board id information. liquan.zhou.t2m. 20230304
+t2m_hw_version=`cat sys/info/hw_version`
+setprop ro.vendor.hw_version "$t2m_hw_version"
+
 # copy GPU frequencies to vendor property
 if [ -f /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies ]; then
     gpu_freq=`cat /sys/class/kgsl/kgsl-3d0/gpu_available_frequencies` 2> /dev/null
