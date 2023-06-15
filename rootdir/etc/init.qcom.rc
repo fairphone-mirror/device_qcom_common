@@ -788,7 +788,7 @@ service vendor.ssr_diag /system/vendor/bin/ssr_diag
     group system
     disabled
 
-service diag_mdlog_start /system/vendor/bin/diag_mdlog -c
+service diag_mdlog_start /system/vendor/bin/diag_mdlog -c -q 2 -u
     class late_start
     user shell
     group system oem_2901 sdcard_rw sdcard_r media_rw
