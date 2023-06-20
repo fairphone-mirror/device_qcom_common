@@ -391,6 +391,7 @@ on post-fs-data
 
     #Create dir for TUI
     mkdir /data/vendor/tui 0700 system drmrpc
+    
 
 service nqnfcinfo /system/vendor/bin/nqnfcinfo
     class late_start
@@ -791,7 +792,7 @@ service vendor.ssr_diag /system/vendor/bin/ssr_diag
 service diag_mdlog_start /system/vendor/bin/diag_mdlog -c -q 2 -u
     class late_start
     user root
-    group system oem_2901 sdcard_rw sdcard_r media_rw
+    group system oem_2901 sdcard_rw sdcard_r media_rw shell
     disabled
     oneshot
 
