@@ -615,3 +615,6 @@ subsystem mem_buf_vm
 
 # SPI UWB device
 /dev/spiuwb    0660    uwb    uwb
+
+#MMITest usb2
+/sys/devices/platform/soc/a600000.ssusb/a600000.dwc3/udc/a600000.dwc3/current_speed     0660   system     system
