@@ -5799,3 +5799,13 @@ esac
 misc_link=$(ls -l /dev/block/bootdevice/by-name/misc)
 real_path=${misc_link##*>}
 setprop persist.vendor.mmi.misc_dev_path $real_path
+
+for type_path in /sys/class/thermal/thermal_zone*/type
+do
+    type_value=`cat $type_path`
+    if [ "$type_value" == "socd" ]; then
+        socd_path=$(dirname "$type_path")
+        setprop vendor.tinfo.thermal.socd_path $socd_path
+        break;
+    fi
+done
