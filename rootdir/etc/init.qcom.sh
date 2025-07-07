@@ -450,6 +450,12 @@ fi
 chmod g-w /data/vendor/modem_config
 setprop ro.vendor.ril.mbn_copy_completed 1
 
+mkdir /config/stp-policy/coresight-stm:p_ost.policy
+chmod 660 /config/stp-policy/coresight-stm:p_ost.policy
+mkdir /config/stp-policy/coresight-stm:p_ost.policy/default
+chmod 660 /config/stp-policy/coresight-stm:p_ost.policy/default
+echo 0x10 > /sys/bus/coresight/devices/coresight-stm/traceid
+
 #check build variant for printk logging
 #current default minimum boot-time-default
 buildvariant=`getprop ro.build.type`
