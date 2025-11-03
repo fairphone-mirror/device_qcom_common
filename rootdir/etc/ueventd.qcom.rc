@@ -610,3 +610,4 @@ subsystem mem_buf_vm
 
 #MMITest usb2
 /sys/devices/platform/soc/a600000.ssusb/a600000.dwc3/udc/a600000.dwc3/current_speed     0660   system     system
+/sys/devices/virtual/hall_switch/soc:hall_1/hall_status     0660   system     system
